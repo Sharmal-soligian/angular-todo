@@ -1,0 +1,24 @@
+<div class="todos">
+  <form (submit)="addTodo($event)">
+    <input type="text" placeholder="Enter Todo" class="todo-input" name="todoInput" [(ngModel)]="todoInput" />
+    <input type="submit" value="Save" class="todo-submit" [ngStyle]="{ 'cursor': 'pointer' }">
+  </form>
+
+  <ng-container *ngIf="todos.length ; else noTodo">
+    <div *ngFor="let todo of todos; let i = index" class="todo {{ todo.completed ? 'done' : '' }}">
+      <div class="id">
+        {{ i }}
+      </div>
+      <div class="content" [ngStyle]="{ cursor: 'pointer' }" (click)="checkDone(i)">
+        {{ todo.content }}
+      </div>
+      <button class="delete" (click)="deleteTodo(i)">Remove</button>
+    </div>
+  </ng-container>
+
+  <ng-template #noTodo>
+    <div [ngStyle]="{ 'text-align': 'center' }">
+      No Todo for now
+    </div>
+  </ng-template>
+</div>
